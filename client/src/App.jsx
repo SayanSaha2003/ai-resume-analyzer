@@ -1,15 +1,24 @@
-import { useState } from "react";
-import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { useState , useEffect } from "react";
+import { GoogleAuthProvider, signInWithPopup, signOut , onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 
 export default function App() {
     const [user, setUser] = useState(null);
 
+    // persist user state across page refreshes
+    useEffect(() => {
+        // put the currentuser in the user state when the component mounts
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser);
+        });
+
+        return () => unsubscribe();
+    }, []);
+
     const handleSignIn = async () => {
         try {
             const provider = new GoogleAuthProvider();
-            const result = await signInWithPopup(auth, provider);
-            setUser(result.user);
+            await signInWithPopup(auth, provider);
         } catch (error) {
             console.error("Sign in error:", error);
         }
