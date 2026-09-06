@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
+import analyzeRouter from './routes/analyze.js';
+
 // Load environment variables from .env file
 dotenv.config();
 
@@ -9,8 +11,13 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-// Enable cors middleware
+// Middleware
 app.use(cors());
+app.use(express.json());
+
+// Analyze route
+app.use('/api/analyze', analyzeRouter);
+
 
 // Routes
 app.get('/', (req, res) => {
