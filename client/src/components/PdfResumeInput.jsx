@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Upload } from "lucide-react";
 
-export default function PdfResumeInput() {
+import { extractTextFromPdf } from "../services/pdfService";
+
+export default function PdfResumeInput({ setResumeText }) {
     const [file, setFile] = useState(null); // State to hold the selected file
-    const [isDragging, setIsDragging] = useState(false); // State to track draging
+    const [isDragging, setIsDragging] = useState(false); // State to track dragging
 
     // Handle file selection
-    const handleFile = (selectedFile) => {
+    const handleFile = async (selectedFile) => {
         if (!selectedFile) return;
 
         if (selectedFile.type !== "application/pdf") {
@@ -15,6 +17,17 @@ export default function PdfResumeInput() {
         }
 
         setFile(selectedFile);
+
+        // Extract text from the selected PDF file
+        try {
+            const extractedText = await extractTextFromPdf(selectedFile);
+            setResumeText(extractedText);
+
+            // console.log("Extracted PDF text:", extractedText);
+        } catch (error) {
+            console.error("PDF extraction failed:", error);
+            alert("Failed to extract text from PDF.");
+        }
     };
 
     // Handle browser file picker

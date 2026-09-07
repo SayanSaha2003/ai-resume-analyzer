@@ -52,7 +52,7 @@ export default function ResumeInput({
                     setResumeText={setResumeText}
                 />
             ) : (
-                <PdfResumeInput />
+                <PdfResumeInput setResumeText={setResumeText} />
             )}
 
             {/* Analyze */}

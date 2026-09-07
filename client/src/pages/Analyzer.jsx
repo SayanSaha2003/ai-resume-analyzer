@@ -16,7 +16,7 @@ export default function Analyzer() {
             setError("");
 
             const result = await analyzeResume(resumeText);
-            console.log("Analysis Result:", result);
+            // console.log("Analysis Result:", result);
             setAnalysis(result);
         } catch (error) {
             setError(error.message);
