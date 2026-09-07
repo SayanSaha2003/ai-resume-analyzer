@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { FileText, Upload, Sparkles } from "lucide-react";
 
-export default function ResumeInput() {
+export default function ResumeInput({
+    resumeText,
+    setResumeText,
+    onAnalyze,
+    loading,
+}) {
     const [activeTab, setActiveTab] = useState("text");
-    const [resumeText, setResumeText] = useState("");
 
     return (
         <section className="rounded-xl bg-white p-5 shadow-sm">
@@ -67,9 +71,13 @@ export default function ResumeInput() {
             )}
 
             {/* Analyze */}
-            <button className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-700">
-                <Sparkles size={18} />
-                Analyze Resume
+            <button
+                onClick={onAnalyze}
+                disabled={loading || !resumeText.trim()}
+                className="mt-5 w-full rounded-lg bg-blue-600 px-4 py-3 font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+                <Sparkles size={18} className="mr-2 inline-block" />
+                {loading ? "Analyzing..." : "Analyze Resume"}
             </button>
         </section>
     );
