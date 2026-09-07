@@ -1,16 +1,56 @@
-# React + Vite
+# AI Resume Analyzer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+AI-powered resume analyzer that uses AI to provide structured feedback and improvement suggestions.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Google Authentication
+- Paste resume text
+- PDF upload + drag & drop
+- Client-side PDF text extraction
+- AI resume analysis
+- Score, strengths, weaknesses, skills & suggestions
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React + Vite + Tailwind CSS
+- Node.js + Express.js
+- OpenRouter + GPT-4o-mini
+- Firebase Authentication
+- pdfjs-dist
+- Render
 
-## Expanding the ESLint configuration
+## Architecture
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+React → Express API → OpenRouter → AI Result → React
+
+PDF → PDF.js → Text → Express API
+
+## API
+
+`POST /api/analyze` — Analyzes the submitted resume text.
+
+## Environment Variables
+
+### Client
+
+Firebase configuration + `VITE_API_URL`
+
+### Server
+
+`OPENROUTER_API_KEY`
+
+Never commit `.env` files or API keys.
+
+## Deployment
+
+- Frontend → Render Static Site
+- Backend → Render Web Service
+
+## Future Improvements
+
+- MongoDB analysis history
+- ATS score
+- Job description matching
+- Resume rewriting
+- User dashboard
