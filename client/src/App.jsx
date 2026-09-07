@@ -1,13 +1,20 @@
-import { useState , useEffect } from "react";
-import { GoogleAuthProvider, signInWithPopup, signOut , onAuthStateChanged } from "firebase/auth";
+import { useEffect, useState } from "react";
+import {
+    GoogleAuthProvider,
+    signInWithPopup,
+    signOut,
+    onAuthStateChanged,
+} from "firebase/auth";
+
 import { auth } from "./firebase";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Analyzer from "./pages/Analyzer";
 
 export default function App() {
     const [user, setUser] = useState(null);
 
-    // persist user state across page refreshes
     useEffect(() => {
-        // put the currentuser in the user state when the component mounts
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
         });
@@ -18,35 +25,30 @@ export default function App() {
     const handleSignIn = async () => {
         try {
             const provider = new GoogleAuthProvider();
+
             await signInWithPopup(auth, provider);
         } catch (error) {
             console.error("Sign in error:", error);
         }
     };
+
     const handleSignOut = async () => {
         try {
             await signOut(auth);
-            setUser(null);
         } catch (error) {
             console.error("Sign out error:", error);
         }
     };
 
     return (
-        <div>
-            {!user ? (
-                <>
-                    <h1>AI Resume Analyzer</h1>
-                    <button onClick={handleSignIn}>Sign in with Google</button>
-                </>
-            ) : (
-                <>
-                    <h1>Welcome, {user.displayName}</h1>
-                    <p>{user.email}</p>
+        <div className="min-h-screen bg-[#f5f9ff]">
+            <Navbar
+                user={user}
+                onSignIn={handleSignIn}
+                onSignOut={handleSignOut}
+            />
 
-                    <button onClick={handleSignOut}>Sign Out</button>
-                </>
-            )}
+            {!user ? <Home onSignIn={handleSignIn} /> : <Analyzer />}
         </div>
     );
 }
