@@ -69,11 +69,12 @@ export default function AnalysisResult({ analysis, loading, error }) {
                             Strengths
                         </h3>
 
-                        <ul className="space-y-2">
+
+                        <ul className="list-disc space-y-2 pl-5">
                             {analysis.strengths.map((item, index) => (
                                 <li
                                     key={index}
-                                    className="rounded-lg bg-slate-50 p-3 text-sm text-slate-600"
+                                    className="rounded-lg bg-slate-50 p-1 text-sm text-slate-600"
                                 >
                                     {item}
                                 </li>
@@ -88,11 +89,11 @@ export default function AnalysisResult({ analysis, loading, error }) {
                             Weaknesses
                         </h3>
 
-                        <ul className="space-y-2">
+                        <ul className="list-disc space-y-2 pl-5">
                             {analysis.weaknesses.map((item, index) => (
                                 <li
                                     key={index}
-                                    className="rounded-lg bg-slate-50 p-3 text-sm text-slate-600"
+                                    className="rounded-lg bg-slate-50 p-1 text-sm text-slate-600"
                                 >
                                     {item}
                                 </li>
@@ -125,11 +126,11 @@ export default function AnalysisResult({ analysis, loading, error }) {
                             Suggestions
                         </h3>
 
-                        <ul className="space-y-2">
+                        <ul className="list-disc space-y-2 pl-5">
                             {analysis.suggestions.map((item, index) => (
                                 <li
                                     key={index}
-                                    className="rounded-lg bg-slate-50 p-3 text-sm text-slate-600"
+                                    className="rounded-lg bg-slate-50 p-1 text-sm text-slate-600"
                                 >
                                     {item}
                                 </li>
